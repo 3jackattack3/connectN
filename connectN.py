@@ -33,12 +33,14 @@ def checkVerticals(board):
                 if(counter >= (len(board)+1)/2 and board[j][column] == 'O'):
                     winBlack = True
                 counter = 0
-    return winRed, winBlack
+    return [winRed, winBlack]
 
-
-#def checkHorizontals(board):
-
-#def checkDiagonals(board):
+def check(board, counterRed, counterBlack, startx, starty):
+    for i in range(startx, len(board)):
+        for j in range(starty, len(board[column])):
+            if(board[j][column] == 'X'):
+                check(board, counterRed+1, counterBlack)
+            #if
 
 
 length = int(input("size of board: "))
@@ -54,9 +56,14 @@ length = int(input("size of board: "))
 #board = [['.']*length]*length
 board = [['.']*length for i in range(length)]
 
+win = [False, False]
+
 displayBoard(board)
 placePiece(board, 3, "red")
-placePiece(board, 3, "black")
-placePiece(board, 4, "red")
-checkVerticals(board)
+placePiece(board, 3, "red")
+placePiece(board, 3, "red")
+placePiece(board, 3, "red")
+placePiece(board, 3, "red")
+win = checkVerticals(board)
 displayBoard(board)
+print(win)
