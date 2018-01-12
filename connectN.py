@@ -5,7 +5,7 @@ def displayBoard(board):
     # for i in range(len(board)):
     #     print(*board[temp[i]], sep=' ')
     print('\n'.join(' '.join(row) for row in board))
-    print("\n")
+    print('\n')
 
 def placePiece(board, column, color):
     location = 0
@@ -15,9 +15,9 @@ def placePiece(board, column, color):
     location -= 1
 
     if(color == "red"):
-        board[location][column] = "X"
+        board[location][column] = 'X'
     else:
-        board[location][column]= "O"
+        board[location][column]= 'O'
 
 def checkVerticals(board):
     counter = 0
