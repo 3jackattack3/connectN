@@ -8,15 +8,15 @@ def displayBoard(board):
 
 def placePiece(board, column, color):
     location = 0
-    for i in range(len(temp)):
-        if(temp[i] == 0):
+    for i in range(len(board)):
+        if(board[column][i] == 0):
             location += 1
     location -= 1
 
     if(color == "red"):
-        board[column[location]] = "X"
+        board[column][location] = "X"
     else:
-        board[column[location]] = "O"
+        board[column][location]= "O"
 
 length = int(input("size of board: "))
 
@@ -33,3 +33,4 @@ board = [['.']*length for i in range(length)]
 
 displayBoard(board)
 placePiece(board, 3, "red")
+displayBoard(board)
