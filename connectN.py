@@ -35,12 +35,35 @@ def checkVerticals(board):
                 counter = 0
     return [winRed, winBlack]
 
-def check(board, counterRed, counterBlack, startx, starty):
+def check(board):
+    winRed = False
+    winBlack = False
     for i in range(startx, len(board)):
         for j in range(starty, len(board[column])):
             if(board[j][column] == 'X'):
-                #check(board, counterRed+1, counterBlack)
-            #if
+                winRed = check(board, i, j, red)
+            if(board[j][column] == 'O'):
+                winBlack = check(board, i, j, black)
+    return [winRed, winBlack]
+
+def checkSameDirection(board, startx, starty, color):
+    win = False
+    if(color == "red"):
+        counterRed = 1
+    elif(color == "black"):
+        counterBlack = 1
+
+    for i in range(startx, len(board)):
+        for j in range(starty, len(board[column])):
+            if(color == "red"):
+                counterRed += 1
+            elif(color == "black"):
+                counterBlack += 1
+
+    if(counterRed >= (len(board)+1)/2 or counterBlack >= (len(board)+1)/2):
+        win = True
+
+    return win
 
 
 length = int(input("size of board: "))
