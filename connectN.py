@@ -39,7 +39,7 @@ def check(board, counterRed, counterBlack, startx, starty):
     for i in range(startx, len(board)):
         for j in range(starty, len(board[column])):
             if(board[j][column] == 'X'):
-                check(board, counterRed+1, counterBlack)
+                #check(board, counterRed+1, counterBlack)
             #if
 
 
