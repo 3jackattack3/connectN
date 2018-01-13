@@ -1,0 +1,14 @@
+def displayBoard
+
+def check:
+  cycles through the 2D list, until it finds an X or an O
+  once it has, checks all spaces around it for another of that same type
+  if it estabishes that there are two in a row, then calls another function checkSameDirection
+
+def checkSameDirection:
+  inputs a position in the 2D list, and 2 direction vectors, like in the blackbox lab
+  checks the following few spaces in that direction at that starting point
+  if there are N of the same type of chip (X or O), then one player wins!
+  otherwise, returns, going back to the check function
+
+  
