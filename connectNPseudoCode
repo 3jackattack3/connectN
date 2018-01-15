@@ -11,4 +11,6 @@ def checkSameDirection:
   if there are N of the same type of chip (X or O), then one player wins!
   otherwise, returns, going back to the check function
 
-  
+def placePiece:
+  user inputs a column to place piece in
+  automatically places piece in lowest available space of that column, or informs user that column is full
