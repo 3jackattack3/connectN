@@ -41,29 +41,61 @@ def check(board):
     for column in board:
         for j in range(len(board)):
             if column[j] == 'X':
-                winRed = checkSameDirection(board, board.index(column), j, "red")
+                winRed = checkSameDirection(board, board.index(column), j, "red", 1, 0)
+                if(winRed == False):
+                    winRed = checkSameDirection(board, board.index(column), j, "red", 0, -1)
             if column[j] == 'O':
-                winBlack = checkSameDirection(board, board.index(column), j, "black")
+                winBlack = checkSameDirection(board, board.index(column), j, "black", 1, 0)
+                if winBlack == False:
+                    winBlack = checkSameDirection(board, board.index(column), j, "black", 0, -1)
     return [winRed, winBlack]
 
-def checkSameDirection(board, startx, starty, color):
-    print("in function")
+def checkSameDirection(board, startx, starty, color, directionx, directiony):
     win = False
     if color == "red":
         counterRed = 1
     elif color == "black":
         counterBlack = 1
 
-    for i in range(startx, len(board)):
-        for j in range(starty, len(board[column])):
+    if directionx == 1 and directiony == 0:  #checks horizontals
+        for column in board:
+            for index in range(starty, len(board)):
+                if color == "red":
+                    if column[index] == 'X':
+                        counterRed += 1
+                        counterBlack = 0
+                elif color == "black":
+                    if column[index] == 'O':
+                        counterBlack += 1
+                        counterRed = 0
+
+    elif directionx == 0 and directiony == -1:  #checks verticals
+        for index in range(len(board[startx])):
             if color == "red":
-                counterRed += 1
+                if board[startx][index] == 'X':
+                    counterRed += 1
+                    counterBlack = 0
             elif color == "black":
-                counterBlack += 1
+                if board[startx][index] == 'O':
+                    counterBlack += 1
+                    counterRed = 0
 
-    if counterRed >= (len(board)+1)/2 or counterBlack >= (len(board)+1)/2:
-        win = True
+    # for i in range(startx, len(board)):
+    #     for j in range(starty, len(board[i])):
+    #         if color == "red":
+    #             counterRed += 1
+    #         elif color == "black":
+    #             counterBlack += 1
 
+    if color == "red":
+        if counterRed >= (len(board)+1)/2 + 1:
+            win = True
+
+    if color == "black":
+        if counterBlack >= (len(board)+1)/2 + 1:
+            win = True
+
+    print("counterRed = ", counterRed, " and counterBlack = ", counterBlack)
     return win
 
 
@@ -83,11 +115,14 @@ board = [['.']*length for i in range(length)]
 win = [False, False]
 
 displayBoard(board)
+placePiece(board, 3, "black")
+placePiece(board, 3, "black")
+# placePiece(board, 3, "red")
+# placePiece(board, 3, "red")
 placePiece(board, 3, "red")
 placePiece(board, 3, "red")
-placePiece(board, 3, "red")
-placePiece(board, 3, "red")
-placePiece(board, 3, "red")
+placePiece(board, 3, "black")
+
 win = check(board)
 displayBoard(board)
 print(win)
