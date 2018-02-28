@@ -4,7 +4,7 @@ sys.version
 def displayBoard(board):
     # for i in range(len(board)):
     #     print(*board[temp[i]], sep=' ')
-    print('\n'.join(' '.join(row) for row in board))
+    print('\n'.join('  '.join(row) for row in board))
     print('\n')
 
 def placePiece(board, column, color):
@@ -44,10 +44,18 @@ def check(board):
                 winRed = checkSameDirection(board, board.index(column), j, "red", 1, 0)
                 if(winRed == False):
                     winRed = checkSameDirection(board, board.index(column), j, "red", 0, -1)
+                    if(winRed == False):
+                        winRed = checkSameDirection(board, board.index(column), j, "red", 1, -1)
+                        if(winRed == False):
+                            winRed = checkSameDirection(board, board.index(column), j, "red", 1, 1)
             if column[j] == 'O':
                 winBlack = checkSameDirection(board, board.index(column), j, "black", 1, 0)
                 if winBlack == False:
                     winBlack = checkSameDirection(board, board.index(column), j, "black", 0, -1)
+                    if winBlack == False:
+                        winBlack = checkSameDirection(board, board.index(column), j, "black", 1, -1)
+                        if winBlack == False:
+                            winBlack = checkSameDirection(board, board.index(column), j, "black", 1, 1)
     return [winRed, winBlack]
 
 def checkSameDirection(board, startx, starty, color, directionx, directiony):
@@ -80,6 +88,30 @@ def checkSameDirection(board, startx, starty, color, directionx, directiony):
                     counterBlack += 1
                     counterRed = 0
 
+    elif directionx == 1 and directiony == -1:  #checks down right diagonol, just a placeholder right now, need to change
+        for column in board:
+            for index in range(starty, len(board)):
+                if color == "red":
+                    if column[index] == 'X':
+                        counterRed += 1
+                        counterBlack = 0
+                elif color == "black":
+                    if column[index] == 'O':
+                        counterBlack += 1
+                        counterRed = 0
+
+    elif directionx == 1 and directiony == 1:  #checks up right diagonal, just a placeholder right now, need to change
+        for column in board:
+            for index in range(starty, len(board)):
+                if color == "red":
+                    if column[index] == 'X':
+                        counterRed += 1
+                        counterBlack = 0
+                elif color == "black":
+                    if column[index] == 'O':
+                        counterBlack += 1
+                        counterRed = 0
+
     # for i in range(startx, len(board)):
     #     for j in range(starty, len(board[i])):
     #         if color == "red":
@@ -110,7 +142,7 @@ length = int(input("size of board: "))
 #    board.append(temp)
 
 #board = [['.']*length]*length
-board = [['.']*length for i in range(length)]
+board = [['.']*length for i in range(length-1)]
 
 win = [False, False]
 
@@ -119,9 +151,9 @@ placePiece(board, 3, "black")
 placePiece(board, 3, "black")
 # placePiece(board, 3, "red")
 # placePiece(board, 3, "red")
+# placePiece(board, 3, "red")
 placePiece(board, 3, "red")
 placePiece(board, 3, "red")
-placePiece(board, 3, "black")
 
 win = check(board)
 displayBoard(board)
